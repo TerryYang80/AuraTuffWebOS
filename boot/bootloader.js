@@ -34,24 +34,24 @@ function askYesNo(onYes, onNo) {
         if (event.key === "Enter") {
             const answer = input.value.toLowerCase().trim();
 
-             if (answer === "y" || answer === "n") {
+            if (answer === "y" || answer === "n") {
                 input.disabled = true;
                 document.removeEventListener("click", autoFocus);
-                
+
                 if (answer === "y") onYes();
                 if (answer === "n") onNo();
-                
+
             } else {
 
-            input.disabled = true;
-            document.removeEventListener("click", autoFocus);
-            termNewLn("Invalid selection.")
-            delay(0.5, () => {
+                input.disabled = true;
+                document.removeEventListener("click", autoFocus);
+                termNewLn("Invalid selection.")
+                delay(0.5, () => {
                     termNewLn("Do You Wish To Boot Into AuraTuffWebOS?");
                     askYesNo(onYes, onNo);
                 });
+            }
         }
-    }
     })
 }
 
@@ -60,24 +60,39 @@ delay(0.25, () => {
     termNewLn("Initializing bootloader");
 
     let dots = 0;
-    const interval = setInterval (() => {
+    const interval = setInterval(() => {
         termText.append("•")
         dots++
 
         if (dots >= 9) clearInterval(interval);
     }, 100);
 
-    delay (1.25, () => {
+    delay(1.25, () => {
         termNewLn("Hello World!")
 
 
-        delay (0.5, () => {
+        delay(0.5, () => {
             termNewLn("Do You Wish To Boot Into AuraTuffWebOS?")
 
 
             askYesNo(
                 () => {
-                    termNewLn("Booting into AuraTuffWebOS...")
+                    termNewLn("Booting into AuraTuffWebOS")
+
+
+                    let dots = 0;
+                    const interval = setInterval(() => {
+                        termText.append("•")
+                        dots++
+
+                        if (dots >= 9) clearInterval(interval);
+                    }, 200);
+
+                    delay(2.25, () => {
+                        window.location.replace("../sbin/sys.html")
+                    }
+                    )
+
                 },
                 () => {
                     termNewLn("Wrong Answer Bud...")
@@ -86,6 +101,6 @@ delay(0.25, () => {
             )
         })
 
-        
+
     })
 });

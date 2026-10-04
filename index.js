@@ -1,1 +1,1 @@
-window.location.replace("./boot/bootload.html")
+window.location.replace("./boot/bootloader.html")
